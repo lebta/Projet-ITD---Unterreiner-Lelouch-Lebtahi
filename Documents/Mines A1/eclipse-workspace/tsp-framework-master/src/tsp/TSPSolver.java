@@ -23,7 +23,7 @@ public class TSPSolver {
 	// -----------------------------
 
 	/**
-	 * The Solution that will be returned by the program.
+	 * The Solution that will be returned by the programs.
 	 */
 	private Solution m_solution;
 

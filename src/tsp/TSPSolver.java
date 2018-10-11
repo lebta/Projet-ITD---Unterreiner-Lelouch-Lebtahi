@@ -1,5 +1,5 @@
 package tsp;
-
+ import java.util.ArrayList;
 /**
  * 
  * This class is the place where you should enter your code and from which you can create your own objects.
@@ -17,6 +17,7 @@ package tsp;
  * 
  */
 public class TSPSolver {
+	
 
 	// -----------------------------
 	// ----- ATTRIBUTS -------------
@@ -67,19 +68,40 @@ public class TSPSolver {
 	 * 
 	 * @throws Exception may return some error, in particular if some vertices index are wrong.
 	 */
-	public void solve() throws Exception
-	{
-		m_solution.print(System.err);
+	public void solve() throws Exception {
+	ResolutionPlusProcheVoisin();
 		
-		// Example of a time loop
-		long startTime = System.currentTimeMillis();
-		long spentTime = 0;
-		do
-		{
-			// TODO
-			// Code a loop base on time here
-			spentTime = System.currentTimeMillis() - startTime;
-		}while(spentTime < (m_timeLimit * 1000 - 100) );
+		
+	}
+	
+	public void ResolutionPlusProcheVoisin() throws Exception {
+		int nbCities = m_instance.getNbCities();
+		m_solution.setCityPosition(0,0);
+		ArrayList<Integer> VilleNonVisite = new ArrayList<Integer>();
+		for (int i = 1; i<nbCities; i++) {
+			VilleNonVisite.add(i);
+		}
+		int NbVilleVisite = 1;
+		int VilleActuelle= 0;
+		while(NbVilleVisite<nbCities) {
+			long min = m_instance.getDistances(VilleActuelle, VilleNonVisite.get(0));
+			int VilleSuivante = VilleNonVisite.get(0);
+			int index = 0;
+			for( int i = 0; i<VilleNonVisite.size(); i++ ) {
+				if (m_instance.getDistances(VilleActuelle, VilleNonVisite.get(i))<min) {
+					min = m_instance.getDistances(VilleActuelle, VilleNonVisite.get(i));
+					VilleSuivante = VilleNonVisite.get(i);
+					index = i;
+				}
+				System.err.println(VilleNonVisite);
+			}
+			VilleNonVisite.remove(index);
+			VilleActuelle=VilleSuivante;
+			NbVilleVisite++;
+			m_solution.setCityPosition(VilleActuelle, NbVilleVisite-1);
+		}
+		m_solution.setCityPosition(0, nbCities);
+		
 		
 	}
 

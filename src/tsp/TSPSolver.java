@@ -1,5 +1,6 @@
 package tsp;
  import java.util.ArrayList;
+ import java.util.Arrays;
 /** test2
  * 
  * This class is the place where you should enter your code and from which you can create your own objects.
@@ -93,7 +94,6 @@ public class TSPSolver {
 					VilleSuivante = VilleNonVisite.get(i);
 					index = i;
 				}
-				System.err.println(VilleNonVisite);
 			}
 			VilleNonVisite.remove(index);
 			VilleActuelle=VilleSuivante;
@@ -104,6 +104,45 @@ public class TSPSolver {
 		
 		
 	}
+	
+	
+	
+	
+	public ArrayList<int[]> ArbreKruskal() throws Exception{
+		
+		
+		ArrayList<int[]> DistanceTriee = tri();
+		ArrayList<Integer> PointVisite = new ArrayList<Integer>();
+		ArrayList<int[]> Arbre = new ArrayList<int[]>();		
+		for (int i = 0; i<DistanceTriee.size(); i++) {
+			int Point1 = DistanceTriee.get(i)[0];
+			int Point2 = DistanceTriee.get(i)[1];
+			if (!((PointVisite.contains(Point1)&&(PointVisite.contains(Point2))))){
+				int[] NouvelElt = new int[2];
+				NouvelElt[0] = Point1;
+				NouvelElt[1] = Point2;
+				Arbre.add(NouvelElt);
+				PointVisite.add(Point1);
+				PointVisite.add(Point2);
+			}
+		}
+		
+		return Arbre;
+		
+		
+		
+	}
+	
+	//Le type de retour est une liste de tableaux de 2 elts [point 1, point2]
+	// On trie par distance croissantes.
+	
+	public ArrayList<int[]> tri() throws Exception{ 
+		
+		
+	}
+	
+	
+	
 
 	// -----------------------------
 	// ----- GETTERS / SETTERS -----
